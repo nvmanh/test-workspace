@@ -12,7 +12,7 @@
   - _Files: Dockerfile (new), .dockerignore (new), README.md, tests/docker-build.test.sh (new)_
   - _Agent: claude_
 
-- [ ] 2. Viết script build `scripts/docker-build.sh` và kiểm thử cho script
+- [x] 2. Viết script build `scripts/docker-build.sh` và kiểm thử cho script
   - Tạo `scripts/docker-build.sh` (shebang `#!/bin/sh`, `set -eu`, chỉ dùng cú pháp POSIX, `chmod +x`) theo đúng thứ tự hành vi trong design:
     1. Tham số thứ nhất là `-h` hoặc `--help` → in usage (chứa `Usage`) ra stdout, không gọi docker, thoát 0.
     2. Nhiều hơn 1 tham số → in lỗi và usage ra stderr, thoát 2.
