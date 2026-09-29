@@ -348,6 +348,17 @@ run_integration_tests() {
   else
     fail "4.4 scripts/docker-build.sh from another directory exits 0"
   fi
+  assert_success "4.4 image $TMP_IMAGE exists" docker image inspect "$TMP_IMAGE"
+
+  # 4.3: IMAGE_NAME overrides the image name (removed on exit)
+  custom_image=test-workspace-custom:test-image-name
+  TMP_IMAGES="$TMP_IMAGES $custom_image"
+  if IMAGE_NAME=${custom_image%%:*} "$BUILD_SCRIPT" "${custom_image#*:}" >/dev/null 2>&1; then
+    pass "4.3 IMAGE_NAME=${custom_image%%:*} scripts/docker-build.sh exits 0"
+  else
+    fail "4.3 IMAGE_NAME=${custom_image%%:*} scripts/docker-build.sh exits 0"
+  fi
+  assert_success "4.3 image $custom_image exists" docker image inspect "$custom_image"
 
   # 1.3: WORKDIR
   workdir=$(docker image inspect -f '{{.Config.WorkingDir}}' "$IMAGE" 2>/dev/null)
