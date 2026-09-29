@@ -1,6 +1,6 @@
 # Implementation Plan
 
-- [ ] 1. Tạo Dockerfile, .dockerignore, mục Docker trong README và bộ kiểm thử nền
+- [x] 1. Tạo Dockerfile, .dockerignore, mục Docker trong README và bộ kiểm thử nền
   - Tạo `Dockerfile` ở gốc repository đúng như design: `FROM alpine:3.20` (tag cố định, không dùng `latest`), `LABEL org.opencontainers.image.title="test-workspace"`, `WORKDIR /app`, tạo system user/group `app` bằng `addgroup -S` / `adduser -S -G app app`, `COPY --chown=app:app . /app`, `USER app`, `CMD ["ls", "-la", "/app"]`.
   - Tạo `.dockerignore` ở gốc repository, mỗi mục một dòng: `.git`, `.kiro`, `.env`, `.env.*`. Không loại `README.md` (cần cho Req 2.3).
   - Giữ nguyên dòng tiêu đề hiện có của `README.md`, thêm mục `## Docker` với ví dụ `docker build -t test-workspace:latest .`, các cách gọi `scripts/docker-build.sh` (không tham số, với tag `1.0.0`, với `IMAGE_NAME=my-image`, với `--help`) và `docker run --rm test-workspace:latest`.
